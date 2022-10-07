@@ -6,18 +6,22 @@
 //
 
 import UIKit
+import MapKit
 import CoreLocation
 
 class ViewController: UIViewController {
 
     let locationManager = CLLocationManager()
+    private lazy var mapView: MKMapView  = {
+        let mapkit = MKMapView()
+        mapkit.translatesAutoresizingMaskIntoConstraints = false
+        mapkit.overrideUserInterfaceStyle = .dark
+        return mapkit
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.delegate = self
+        setup()
     }
 
 
@@ -38,28 +42,54 @@ extension ViewController: CLLocationManagerDelegate {
         print("Location: \(locValue.latitude),\(locValue.longitude)")
         
         guard let location: CLLocation = manager.location else { return }
-        fetchCityAndCountry(from: location) { city, country, error in
-            guard let city = city,
-                  let country = country,
+        mapView.centerToLocation(from: location)
+        fetchCityAndCountry(from: location) { [weak self] placemark, error  in
+            guard let placemark = placemark,
                   error == nil else {
                 return
             }
-            print("\(city), \(country)")
+            self?.mapView.addPin(location, placemark)
+            print("\(placemark)")
         }
         
     }
 }
 
-extension ViewController {
+private extension ViewController {
     
-    func fetchCityAndCountry(from location: CLLocation, completion: @escaping(_ city: String?, _ country: String?, _ error: Error?) -> ()) {
+    func setup() {
+        setupLocationManager()
+        addViews()
+        setContraints()
+    }
+    
+    func addViews() {
+        view.addSubview(mapView)
+    }
+    
+    func setContraints() {
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func setupLocationManager() {
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+    }
+    
+    func fetchCityAndCountry(from location: CLLocation, completion: @escaping(_ placemark: CLPlacemark?, _ error: Error?) -> ()) {
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             guard let placemark = placemarks?.first else {
                 return
             }
+            
             completion(
-                placemark.locality,
-                placemark.country,
+                placemark,
                 error)
         }
     }

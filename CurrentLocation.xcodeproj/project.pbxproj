@@ -13,6 +13,7 @@
 		6B6B7C2428F0BD3000A6A742 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6B7C2228F0BD3000A6A742 /* Main.storyboard */; };
 		6B6B7C2628F0BD3200A6A742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B6B7C2528F0BD3200A6A742 /* Assets.xcassets */; };
 		6B6B7C2928F0BD3200A6A742 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6B7C2728F0BD3200A6A742 /* LaunchScreen.storyboard */; };
+		6B6B7C3128F0CEEE00A6A742 /* MKMapView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B7C3028F0CEEE00A6A742 /* MKMapView+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6B6B7C2528F0BD3200A6A742 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B6B7C2828F0BD3200A6A742 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B6B7C2A28F0BD3200A6A742 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B6B7C3028F0CEEE00A6A742 /* MKMapView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				6B6B7C2528F0BD3200A6A742 /* Assets.xcassets */,
 				6B6B7C2728F0BD3200A6A742 /* LaunchScreen.storyboard */,
 				6B6B7C2A28F0BD3200A6A742 /* Info.plist */,
+				6B6B7C3028F0CEEE00A6A742 /* MKMapView+extension.swift */,
 			);
 			path = CurrentLocation;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B6B7C2128F0BD3000A6A742 /* ViewController.swift in Sources */,
+				6B6B7C3128F0CEEE00A6A742 /* MKMapView+extension.swift in Sources */,
 				6B6B7C1D28F0BD3000A6A742 /* AppDelegate.swift in Sources */,
 				6B6B7C1F28F0BD3000A6A742 /* SceneDelegate.swift in Sources */,
 			);
