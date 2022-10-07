@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MapKit
 import CoreLocation
 
 class ViewController: UIViewController {
@@ -37,5 +36,32 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("Location: \(locValue.latitude),\(locValue.longitude)")
+        
+        guard let location: CLLocation = manager.location else { return }
+        fetchCityAndCountry(from: location) { city, country, error in
+            guard let city = city,
+                  let country = country,
+                  error == nil else {
+                return
+            }
+            print("\(city), \(country)")
+        }
+        
     }
+}
+
+extension ViewController {
+    
+    func fetchCityAndCountry(from location: CLLocation, completion: @escaping(_ city: String?, _ country: String?, _ error: Error?) -> ()) {
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            guard let placemark = placemarks?.first else {
+                return
+            }
+            completion(
+                placemark.locality,
+                placemark.country,
+                error)
+        }
+    }
+    
 }
